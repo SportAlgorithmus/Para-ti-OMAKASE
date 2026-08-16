@@ -390,6 +390,46 @@ coverImg.addEventListener('error', ()=>{ coverImg.classList.add('broken'); cover
 const coverImgSayonara = document.getElementById('cover-img-sayonara');
 coverImgSayonara.addEventListener('error', ()=>{ coverImgSayonara.classList.add('broken'); coverImgSayonara.removeAttribute('src'); });
 
+/* ---------- 5b. countdown OMAKASE TOUR — Bogotá (temporal) ---------- */
+(function(){
+  const wrap = document.getElementById('tour-countdown');
+  if(!wrap) return;
+
+  const targetDate = new Date(wrap.dataset.tourDate).getTime();
+  const grid = wrap.querySelector('.countdown-grid');
+  const todayMsg = wrap.querySelector('.countdown-today');
+  const elDays  = document.getElementById('cd-days');
+  const elHours = document.getElementById('cd-hours');
+  const elMins  = document.getElementById('cd-mins');
+  const elSecs  = document.getElementById('cd-secs');
+
+  let timer = null;
+
+  function tick(){
+    const diff = targetDate - Date.now();
+
+    if(diff <= 0){
+      grid.hidden = true;
+      todayMsg.hidden = false;
+      if(timer) clearInterval(timer);
+      return;
+    }
+
+    const days  = Math.floor(diff / (1000*60*60*24));
+    const hours = Math.floor((diff / (1000*60*60)) % 24);
+    const mins  = Math.floor((diff / (1000*60)) % 60);
+    const secs  = Math.floor((diff / 1000) % 60);
+
+    elDays.textContent  = String(days).padStart(2,'0');
+    elHours.textContent = String(hours).padStart(2,'0');
+    elMins.textContent  = String(mins).padStart(2,'0');
+    elSecs.textContent  = String(secs).padStart(2,'0');
+  }
+
+  tick();
+  timer = setInterval(tick, 1000);
+})();
+
 /* ---------- 6. previews por canción (reproductor oficial de Spotify) ---------- */
 document.querySelectorAll('.play-btn').forEach(btn=>{
   btn.addEventListener('click', ()=>{
