@@ -211,6 +211,21 @@ body{
   animation:pulse 1.4s ease-in-out infinite;
 }
 
+.countdown-video-wrap{
+  margin-top:18px;
+  border-radius:10px;
+  overflow:hidden;
+  border:1px solid rgba(179,35,28,0.3);
+  box-shadow:0 20px 60px rgba(0,0,0,0.5);
+}
+
+.countdown-video-wrap video{
+  display:block;
+  width:100%;
+  max-height:70vh;
+  object-fit:cover;
+}
+
 @media (max-width:380px){
   .countdown-grid{ gap:6px; }
   .countdown-box{ padding:8px 2px; }
