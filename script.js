@@ -398,6 +398,8 @@ coverImgSayonara.addEventListener('error', ()=>{ coverImgSayonara.classList.add(
   const targetDate = new Date(wrap.dataset.tourDate).getTime();
   const grid = wrap.querySelector('.countdown-grid');
   const todayMsg = wrap.querySelector('.countdown-today');
+  const videoWrap = document.getElementById('tour-video-wrap');
+  const video = document.getElementById('tour-video');
   const elDays  = document.getElementById('cd-days');
   const elHours = document.getElementById('cd-hours');
   const elMins  = document.getElementById('cd-mins');
@@ -405,12 +407,23 @@ coverImgSayonara.addEventListener('error', ()=>{ coverImgSayonara.classList.add(
 
   let timer = null;
 
+  function showTodayVideo(){
+    grid.hidden = true;
+    todayMsg.hidden = false;
+    if(videoWrap){
+      videoWrap.hidden = false;
+      if(video){
+        video.muted = true; // por si el navegador ignora el atributo muted del HTML
+        video.play().catch(()=>{ /* algunos navegadores bloquean autoplay hasta que la persona interactúe una vez con la página; el video igual queda visible y listo para tocar play */ });
+      }
+    }
+  }
+
   function tick(){
     const diff = targetDate - Date.now();
 
     if(diff <= 0){
-      grid.hidden = true;
-      todayMsg.hidden = false;
+      showTodayVideo();
       if(timer) clearInterval(timer);
       return;
     }
