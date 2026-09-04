@@ -226,6 +226,17 @@ body{
   object-fit:cover;
 }
 
+.video-fallback{
+  font-family:'Space Mono', monospace;
+  font-size:11px;
+  line-height:1.6;
+  color:rgba(241,236,224,0.7);
+  padding:16px;
+  text-align:center;
+  background:#111;
+}
+.video-fallback code{ color:var(--gold); }
+
 @media (max-width:380px){
   .countdown-grid{ gap:6px; }
   .countdown-box{ padding:8px 2px; }
