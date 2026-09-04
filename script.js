@@ -400,10 +400,18 @@ coverImgSayonara.addEventListener('error', ()=>{ coverImgSayonara.classList.add(
   const todayMsg = wrap.querySelector('.countdown-today');
   const videoWrap = document.getElementById('tour-video-wrap');
   const video = document.getElementById('tour-video');
+  const videoFallback = document.getElementById('video-fallback');
   const elDays  = document.getElementById('cd-days');
   const elHours = document.getElementById('cd-hours');
   const elMins  = document.getElementById('cd-mins');
   const elSecs  = document.getElementById('cd-secs');
+
+  if(video && videoFallback){
+    video.addEventListener('error', ()=>{
+      video.hidden = true;
+      videoFallback.hidden = false;
+    });
+  }
 
   let timer = null;
 
