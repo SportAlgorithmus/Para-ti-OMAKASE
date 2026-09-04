@@ -51,12 +51,14 @@
         <video
           id="tour-video"
           src="assets/tour-video.mp4"
-          autoplay
-          loop
-          muted
+          poster="assets/tour-video-poster.jpg"
           playsinline
           preload="metadata">
         </video>
+        <button class="video-play-btn" id="video-play-btn" aria-label="Reproducir video con sonido">
+          <span class="play-icon">▶</span>
+          <span class="play-label">Reproducir con sonido</span>
+        </button>
         <p class="video-fallback" id="video-fallback" hidden>
           ⚠️ No se pudo cargar el video. Revisa que <code>assets/tour-video.mp4</code>
           esté subido al repositorio, con ese nombre exacto.
