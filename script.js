@@ -401,6 +401,7 @@ coverImgSayonara.addEventListener('error', ()=>{ coverImgSayonara.classList.add(
   const videoWrap = document.getElementById('tour-video-wrap');
   const video = document.getElementById('tour-video');
   const videoFallback = document.getElementById('video-fallback');
+  const videoPlayBtn = document.getElementById('video-play-btn');
   const elDays  = document.getElementById('cd-days');
   const elHours = document.getElementById('cd-hours');
   const elMins  = document.getElementById('cd-mins');
@@ -409,7 +410,24 @@ coverImgSayonara.addEventListener('error', ()=>{ coverImgSayonara.classList.add(
   if(video && videoFallback){
     video.addEventListener('error', ()=>{
       video.hidden = true;
+      if(videoPlayBtn) videoPlayBtn.hidden = true;
       videoFallback.hidden = false;
+    });
+  }
+
+  if(video && videoPlayBtn){
+    videoPlayBtn.addEventListener('click', ()=>{
+      video.muted = false;
+      video.controls = true;
+      video.play().catch(()=>{ /* si el navegador aún así bloquea, la persona puede darle play con los controles nativos que ya quedaron visibles */ });
+      videoPlayBtn.hidden = true;
+    });
+
+    // al terminar, vuelve a mostrar el botón para reproducir de nuevo desde el inicio
+    video.addEventListener('ended', ()=>{
+      video.currentTime = 0;
+      video.controls = false;
+      videoPlayBtn.hidden = false;
     });
   }
 
@@ -418,13 +436,7 @@ coverImgSayonara.addEventListener('error', ()=>{ coverImgSayonara.classList.add(
   function showTodayVideo(){
     grid.hidden = true;
     todayMsg.hidden = false;
-    if(videoWrap){
-      videoWrap.hidden = false;
-      if(video){
-        video.muted = true; // por si el navegador ignora el atributo muted del HTML
-        video.play().catch(()=>{ /* algunos navegadores bloquean autoplay hasta que la persona interactúe una vez con la página; el video igual queda visible y listo para tocar play */ });
-      }
-    }
+    if(videoWrap) videoWrap.hidden = false;
   }
 
   function tick(){
